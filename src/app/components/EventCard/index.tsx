@@ -1,6 +1,8 @@
 'use client'
 import React from 'react';
 import { Avatar, Image } from '@nutui/nutui-react';
+import { EVENT_IMG_PREFIX, EVENT_CREATOR_PROFILE_IMG_PREFIX } from '@/app/constant';
+import _get from 'lodash/get';
 
 import styles from './index.module.css';
 
@@ -16,10 +18,17 @@ const sampleData = {
 const avatarSrc =
     'https://img12.360buyimg.com/imagetools/jfs/t1/143702/31/16654/116794/5fc6f541Edebf8a57/4138097748889987.png';
 const imgSrc =
-    '//img10.360buyimg.com/ling/jfs/t1/181258/24/10385/53029/60d04978Ef21f2d42/92baeb21f907cd24.jpg';
+    'https://s3-us-west-2.amazonaws.com/skyline-event-photos/ORG-dev-bd81c4ef-e4a416963910333221076.jpg';
 
-const EventList: React.FC = () => {
 
+interface Props {
+    detail: Object;
+}
+      
+const EventList: React.FC<Props> = (props) => {
+    const detail = _get(props, 'detail' , {});
+    console.log(detail);
+    
     return (
         <div className={styles.container}>
             <div className={styles.top}>

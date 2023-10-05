@@ -12,12 +12,9 @@ const theme = {
 };
 
 const App: React.FC = () => {
-
     return (
         <ConfigProvider theme={theme}>
-            <div>
-                <EventList />
-            </div>
+            <EventList />
         </ConfigProvider>
     )
 }

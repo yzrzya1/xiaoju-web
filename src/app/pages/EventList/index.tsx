@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabbar, Tabs } from '@nutui/nutui-react'
 import { Cart, Category, Find, Home, My } from '@nutui/icons-react';
 import _get from 'lodash/get';
@@ -23,6 +23,18 @@ const tabs = [
 ];
 
 const EventList: React.FC = () => {
+    const [eventList, setEventList] = useState([]);
+    console.log(eventList);
+    
+    useEffect(() => {
+        fetch('https://k1hpzuueqd.execute-api.us-west-2.amazonaws.com/dev/guest-event-list')
+            .then(x => x.json())
+            .then((x) => {
+                console.log(x);
+                const list = _get(x, 'eventHeaders' , []);
+                setEventList(list);
+            });
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -35,10 +47,11 @@ const EventList: React.FC = () => {
                         return (
                             <Tabs.TabPane title={each.name} key={each.name}>
                                 <div className={styles.tabPanel}>
-                                    <EventCard />
-                                    <EventCard />
-                                    <EventCard />
-                                    <EventCard />
+                                    {eventList.map(eachE => {
+                                        return (
+                                            <EventCard detail={eachE} />
+                                        )
+                                    })}
                                 </div>
                             </Tabs.TabPane>
                         )
